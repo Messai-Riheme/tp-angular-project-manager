@@ -1,0 +1,22 @@
+<div class="mt-4 space-y-2">
+  <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Tâches :</h3>
+  
+  @for (task of tasks; track task.title) {
+    <div class="p-2 bg-gray-50 rounded flex justify-between items-center border-l-4"
+      [ngClass]="{
+        'border-red-500': task.status === 'En attente',
+        'border-blue-500': task.status === 'En cours',
+        'border-green-500': task.status === 'Terminé'
+      }">
+      <span class="text-sm font-medium text-gray-700">{{ task.title }}</span>
+      <span class="text-[10px] px-2 py-0.5 rounded-full font-bold uppercase"
+        [ngClass]="{
+          'bg-red-100 text-red-700': task.status === 'En attente',
+          'bg-blue-100 text-blue-700': task.status === 'En cours',
+          'bg-green-100 text-green-700': task.status === 'Terminé'
+        }">
+        {{ task.status }}
+      </span>
+    </div>
+  }
+</div>
