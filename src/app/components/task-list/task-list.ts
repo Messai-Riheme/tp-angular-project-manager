@@ -1,14 +1,22 @@
-import { Component, Input } from '@angular/core'; // N'oubliez pas l'import de Input
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HighlightStatusDirective } from '../../directives/highlight-status';
+import { PriorityColorPipe } from '../../pipes/priority-color-pipe';
+
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    HighlightStatusDirective,
+    PriorityColorPipe
+  ],
   templateUrl: './task-list.html',
-  styleUrl: './task-list.css'
+  styleUrls: ['./task-list.css']
 })
 export class TaskList {
-  // 3. Déclarez l'entrée pour corriger l'erreur NG8002
-  @Input() tasks: any[] = []; 
+
+  @Input() tasks: any[] = [];
+
 }

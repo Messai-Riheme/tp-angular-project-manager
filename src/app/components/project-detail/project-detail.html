@@ -1,0 +1,28 @@
+@if (project) {
+<div class="mt-6 p-6 bg-gray-100 rounded shadow">
+
+  <h2 class="text-2xl font-bold">{{ project.name }}</h2>
+  <p class="text-gray-600">{{ project.description }}</p>
+
+  <p class="mt-2">
+    <strong>Statut :</strong> {{ project.status }}
+  </p>
+
+  <!-- Barre de progression -->
+  <div class="mt-4">
+    <div class="w-full bg-gray-300 rounded h-4">
+      <div 
+        class="bg-green-500 h-4 rounded transition-all duration-500"
+        [style.width.%]="getProgress()">
+      </div>
+    </div>
+    <p class="text-sm mt-1">
+      Progression : {{ getProgress() | number:'1.0-0' }} %
+    </p>
+  </div>
+
+  <!-- Liste des tâches -->
+  <app-task-list [tasks]="project.tasks"></app-task-list>
+
+</div>
+}
