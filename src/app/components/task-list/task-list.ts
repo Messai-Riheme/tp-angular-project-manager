@@ -1,22 +1,31 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HighlightStatusDirective } from '../../directives/highlight-status';
-import { PriorityColorPipe } from '../../pipes/priority-color-pipe';
+import { StatusEmojiPipe } from '../../pipes/status-emoji-pipe';
+import { PriorityColorPipe } from '../../pipes/priority-color-pipe'; // ✅ Import de votre pipe
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, HighlightStatusDirective, PriorityColorPipe],
+  imports: [
+    CommonModule, 
+    StatusEmojiPipe, 
+    PriorityColorPipe, // ✅ Déclarée ici
+    FormsModule
+  ],
   templateUrl: './task-list.html',
-  styleUrls: ['./task-list.css']
 })
 export class TaskList {
   @Input() tasks: any[] = [];
-
-  // ✅ Émetteur d'événement pour le changement de statut
   @Output() statusChanged = new EventEmitter<number>();
 
-  // Méthode appelée au clic sur le bouton
+  priorityFilter: string = 'TOUTES';
+
+  get filteredTasks() {
+    if (this.priorityFilter === 'TOUTES') return this.tasks;
+    return this.tasks.filter(t => t.priority === this.priorityFilter);
+  }
+
   changeStatus(index: number) {
     this.statusChanged.emit(index);
   }

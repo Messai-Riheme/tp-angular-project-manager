@@ -1,3 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+@theme {
+  --variant-dark: .dark &;
+}
+
+/* Applique un fond par défaut pour éviter les zones blanches résiduelles */
+html, body {
+  @apply min-h-screen transition-colors duration-300;
+}
+
+body {
+  @apply bg-slate-50 text-slate-900;
+}
+
+.dark body {
+  @apply bg-slate-950 text-slate-100;
+}

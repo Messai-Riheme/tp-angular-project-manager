@@ -2,13 +2,20 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskList } from '../task-list/task-list';
 import { ProjectDetail } from '../project-detail/project-detail';
+import { DashboardComponent } from '../dashboard/dashboard'; // ✅ Nouvel import
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-project-list',
   standalone: true,
-  imports: [CommonModule, TaskList, ProjectDetail, FormsModule], // ✅ Importations OK
+  imports: [
+    CommonModule, 
+    TaskList, 
+    ProjectDetail, 
+    DashboardComponent, // ✅ Ajouté aux imports
+    FormsModule
+  ],
   templateUrl: './project-list.html',
   styleUrl: './project-list.css',
   animations: [
@@ -38,22 +45,24 @@ export class ProjectList {
   selectedProject: any = null;
   notification: string | null = null;
 
-projects = [
+  projects = [
     {
       name: 'Projet 1',
-      description: 'Description 1',
+      description: 'Développement de l\'application mobile',
       status: 'En cours',
+      createdAt: new Date(),
       tasks: [
-        { title: 'Tâche 1', priority: 'Haute', status: 'En attente' },
-        { title: 'Tâche 2', priority: 'Moyenne', status: 'En cours' }
+        { name: 'Tâche 1', priority: 'HAUTE', status: 'En attente' },
+        { name: 'Tâche 2', priority: 'MOYENNE', status: 'En cours' }
       ]
     },
     {
       name: 'Projet 2',
-      description: 'Description 2',
+      description: 'Refonte du site web institutionnel',
       status: 'Terminé',
+      createdAt: new Date(Date.now() - 86400000), // Hier
       tasks: [
-        { title: 'Tâche 1', priority: 'Basse', status: 'Terminé' }
+        { name: 'Tâche 1', priority: 'BASSE', status: 'Terminé' }
       ]
     }
   ];
@@ -62,6 +71,15 @@ projects = [
     return this.projects.filter(p =>
       p.name.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  updateTaskStatus(project: any, taskIndex: number) {
+    const task = project.tasks[taskIndex];
+    const states = ['En attente', 'En cours', 'Terminé'];
+    let currentIndex = states.indexOf(task.status);
+    
+    task.status = states[(currentIndex + 1) % states.length];
+    this.notify(`Statut de "${task.name}" mis à jour : ${task.status}`);
   }
 
   toggleProjet(index: number) {
