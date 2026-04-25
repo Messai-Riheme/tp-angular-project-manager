@@ -1,14 +1,16 @@
 import { Component, signal, Renderer2, Inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common'; // Ajoutez CommonModule si besoin
 
 import { ProjectList } from './components/project-list/project-list';
-import { TaskList } from './components/task-list/task-list';
+import { ContactForm } from './components/contact-form/contact-form';
+import { UserFormComponent } from './components/user-form/user-form'; // ✅ Ajout de l'import
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProjectList],
+  // ✅ Ajoutez UserFormComponent ici
+  imports: [RouterOutlet, ProjectList, ContactForm, UserFormComponent, CommonModule], 
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
@@ -24,7 +26,6 @@ export class App {
   toggleDarkMode() {
     this.isDarkMode.update(value => !value);
     
-    // On applique la classe sur <html> pour que tout le projet soit impacté
     if (this.isDarkMode()) {
       this.renderer.addClass(this.document.documentElement, 'dark');
     } else {

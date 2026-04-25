@@ -1,0 +1,88 @@
+<div class="max-w-2xl mx-auto p-8 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-800">
+  <h2 class="text-2xl font-bold mb-6 text-slate-800 dark:text-white">Créez votre compte</h2>
+
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Nom</label>
+      <input formControlName="nom" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="nom?.invalid && nom?.touched">
+      @if (nom?.invalid && nom?.touched) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Le nom est requis (min. 2 caractères).</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Prénom</label>
+      <input formControlName="prenom" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="prenom?.invalid && prenom?.touched">
+      @if (prenom?.invalid && prenom?.touched) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Le prénom est requis (min. 2 caractères).</p>
+      }
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Email</label>
+      <input formControlName="email" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="email?.invalid && email?.touched">
+      @if (email?.invalid && email?.touched) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Veuillez entrer un email valide.</p>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Mot de passe</label>
+      <input type="password" formControlName="password" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="password?.invalid && password?.touched">
+      @if (password?.errors?.['passwordStrength'] && password?.touched) {
+        <ul class="text-red-500 text-[10px] mt-1 list-disc pl-4 font-medium">
+          @if (!password?.errors?.['passwordStrength'].isLengthValid) { <li>8 caractères minimum</li> }
+          @if (!password?.errors?.['passwordStrength'].hasUpperCase) { <li>Une majuscule requise</li> }
+          @if (!password?.errors?.['passwordStrength'].hasNumeric) { <li>Un chiffre requis</li> }
+          @if (!password?.errors?.['passwordStrength'].hasSpecialChar) { <li>Un caractère spécial requis (!@#...)</li> }
+        </ul>
+      }
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Confirmer</label>
+      <input type="password" formControlName="confirmPassword" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="confirmPassword?.touched && contactForm.errors?.['mustMatch']">
+      @if (confirmPassword?.touched && contactForm.errors?.['mustMatch']) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Les mots de passe ne correspondent pas.</p>
+      }
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Téléphone (Optionnel)</label>
+      <input formControlName="telephone" placeholder="0612345678" 
+             class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+             [class.border-red-500]="telephone?.invalid && telephone?.touched">
+      @if (telephone?.invalid && telephone?.touched) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Format français valide attendu (ex: 0123456789).</p>
+      }
+    </div>
+
+    <div class="md:col-span-2">
+      <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Message</label>
+      <textarea formControlName="message" rows="3" 
+                class="w-full p-3 rounded-lg border bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 focus:ring-2 focus:ring-indigo-500 outline-none transition-all" 
+                [class.border-red-500]="message?.invalid && message?.touched"></textarea>
+      @if (message?.invalid && message?.touched) {
+        <p class="text-red-500 text-[11px] mt-1 font-medium">Le message doit contenir au moins 10 caractères.</p>
+      }
+    </div>
+
+    <div class="md:col-span-2">
+      <button type="submit" [disabled]="contactForm.invalid" 
+              class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all transform active:scale-95 shadow-lg shadow-indigo-500/20">
+        Enregistrer les informations
+      </button>
+    </div>
+  </form>
+</div>

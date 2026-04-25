@@ -1,6 +1,6 @@
-<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300">
+<div class="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-300 flex flex-col">
   
-  <header class="p-4 flex justify-between items-center border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm">
+  <header class="p-4 flex justify-between items-center border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm sticky top-0 z-50">
     <h1 class="text-xl font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
       {{ title() }}
     </h1>
@@ -15,9 +15,34 @@
     </button>
   </header>
 
-  <main class="p-6">
+  <main class="p-6 flex-grow">
+    
     <app-project-list></app-project-list>
+
+    <div class="max-w-4xl mx-auto my-16 flex items-center gap-4">
+      <div class="h-px flex-1 bg-indigo-500/30"></div>
+      <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">Exercice : FormBuilder</span>
+      <div class="h-px flex-1 bg-indigo-500/30"></div>
+    </div>
+
+    <div class="max-w-xl mx-auto mb-16">
+       <app-user-form></app-user-form>
+    </div>
+
+    <div class="max-w-4xl mx-auto my-16 flex items-center gap-4">
+      <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+      <span class="text-xs font-bold uppercase tracking-widest text-slate-400">Section Contact</span>
+      <div class="h-px flex-1 bg-slate-200 dark:bg-slate-800"></div>
+    </div>
+
+    <div class="max-w-xl mx-auto pb-12">
+      <app-contact-form></app-contact-form>
+    </div>
+
+    <router-outlet />
   </main>
 
-  <router-outlet />
+  <footer class="p-6 text-center text-sm text-slate-500 border-t border-slate-200 dark:border-slate-800">
+    &copy; 2026 - Project Manager - Rihem Messai
+  </footer>
 </div>
